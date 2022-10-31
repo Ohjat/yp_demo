@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Добавление новой одежды</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<div class="w-full max-w-xs">
+    <form th:action="${'/odejda/add'}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" th:object="${odejda}">
+
+        <div class="mb-4">
+            <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            <label class="block text-gray-700 text-sm font-bold mb-2">Название</label>
+            <input th:field="*{title}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                   type="text" name="title" placeholder="Введите название кинги">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">модель</label>
+            <div style="color: red" th:if="${#fields.hasErrors('mashina')}" th:errors="*{mashina}"></div>
+            <select th:field="*{mashina}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="mashina">
+                <option th:each="mashina : ${authors}"
+                        th:value="${mashina.id}"
+                        th:text="${mashina.name + ' | ' + mashina.birthday}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Дата создания</label>
+            <div style="color: red" th:if="${#fields.hasErrors('release_date')}" th:errors="*{release_date}"></div>
+            <input th:field="*{release_date}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                   type="date" name="release_date" placeholder="Выберите дату выпуска">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">новая колекция</label>
+            <div style="color: red" th:if="${#fields.hasErrors('for_sale')}" th:errors="*{for_sale}"></div>
+            <input th:field="*{for_sale}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                   type="checkbox" name="for_sale" placeholder="В продажи">
+            <input type='hidden' value='0' name='for_sale'>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">партия</label>
+            <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+            <input th:field="*{price}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                   type="number" step="0.1" name="price" placeholder="Цена">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">кузов</label>
+            <div th:each="kuzov : ${kuzovs}">
+                <input th:name="${'kuzovs[]'}" th:value="${kuzov.id}" th:checked="${odejda.id!=null && #lists.contains(odejda.kuzovs, kuzov)}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                   type="checkbox">
+                <label th:text="${kuzov.name}"></label>
+            </div>
+        </div>
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">Добавить одежду
+        </button>
+    </form>
+</div>
+</body>
+</html>

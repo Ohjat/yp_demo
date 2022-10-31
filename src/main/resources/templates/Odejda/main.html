@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Книги</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<h1>Все книги</h1>
+<a class="underline text-blue-600"  href="/odejda/filter">Поиск одежды</a>
+<a class="underline text-blue-600"  href="/odejda/add">Добавить одежды</a>
+<div th:each="odejda : ${odejdas}">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2" th:text="${odejda.title}"/>
+            <p class="text-gray-700 text-base" th:text="${odejda.mashina.name}"></p>
+            <p class="text-gray-700 text-base" th:text="${odejda.release_date}"></p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+            <a class="underline text-blue-600" th:href="'/odejda/edit/'+${odejda.id}">Редактировать</a>
+            <a class="underline text-blue-600" th:href="'/odejda/show/'+${odejda.id}">Посмореть</a>
+            <a class="underline text-blue-600" th:href="'/odejda/del/'+${odejda.id}">Удалить</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

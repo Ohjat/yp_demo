@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:value="${odejda.title}"></title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2" th:text="${odejda.title}"/>
+        <p class="text-gray-700 text-base" th:text="${odejda.mashina.id}"></p>
+        <p class="text-gray-700 text-base" th:text="${odejda.mashina.name}"></p>
+        <p class="text-gray-700 text-base" th:text="${release_date}"></p>
+        <p class="text-gray-700 text-base" th:text="${odejda.for_sale}"></p>
+        <p class="text-gray-700 text-base" th:text="${odejda.price}"></p>
+    </div>
+</div>
+</body>
+</html>
